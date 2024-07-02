@@ -21,3 +21,5 @@ const product = sequelize.define('product', {
         type: DataTypes.DECIMAL(10,2)
     }
 })
+
+module.exports = product;
