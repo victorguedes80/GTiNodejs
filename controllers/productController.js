@@ -13,6 +13,28 @@ class productController{
             return res.status(500).json({msg: 'server internal error!'});
         }
     }
+    async read(req, res){
+        try{
+            const result = await dbAccess.read(model);
+            if(result) return res.status(200).json(result);
+            else res.status(404).json({msg: "produtos indisponíveis!"});
+        }catch(err){
+            console.log(err);
+            return res.status(500).json({msg: 'server internal error!'});
+        }
+
+    }
+    async readClause(req, res){
+        try{
+            const clause = req.body;
+            const result = await dbAccess.readClause(model, clause.field, clause.key);
+            if(result) return res.status(200).json(result);
+            else res.status(404).json({msg: "produto não encontrado!"});
+        }catch(err){
+            console.log(err);
+            return res.status(500).json({msg: 'server internal error!'});
+        }
+    }
 }
 
 module.exports = new productController();
