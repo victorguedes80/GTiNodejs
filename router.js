@@ -19,5 +19,6 @@ router.post('/createProduct', prController.create);
 router.get('/getProduct', prController.read);
 router.post('/getProductClause', prController.readClause);
 router.post('/updateProduct', prController.update);
+router.delete('/deleteProduct', prController.delete);
 
 module.exports = router;

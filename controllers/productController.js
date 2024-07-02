@@ -50,6 +50,17 @@ class productController{
             return res.status(500).json({msg: 'server internal error!'});
         }
     }
+    async delete(req, res){
+        try{
+            const clause = req.body;
+            const result = await dbAccess.delete(model, clause.field, clause.key);
+            if(result) return res.status(200).json({msg: "produto excluído com sucesso!"});
+            else return res.status(500).json({msg: 'server internal error!'});
+        }catch(err){
+            console.log(err);
+            return res.status(500).json({msg: 'server internal error!'});
+        }
+    }
 }
 
 module.exports = new productController();
