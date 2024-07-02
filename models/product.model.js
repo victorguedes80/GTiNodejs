@@ -1,7 +1,7 @@
 const {DataTypes} = require('sequelize');
 const sequelize = require('../services/dbConnect')
 
-const product = sequelize.define('productt', {
+const product = sequelize.define('product', {
     productid: {
         type: DataTypes.INTEGER,
         unique: true,
