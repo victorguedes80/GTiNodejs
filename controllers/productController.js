@@ -35,6 +35,21 @@ class productController{
             return res.status(500).json({msg: 'server internal error!'});
         }
     }
+    async update(req, res){
+        try{
+            const body = req.body;
+            console.log(body);
+            const clause = body.clause;
+            console.log(clause);
+            const newValues = body.newValues;
+            const result = await dbAccess.update(model, clause.field, clause.key, newValues);
+            if(result) return res.status(200).json({msg: "atualizado com sucesso!"});
+            else res.status(404).json({msg: "produto não atualizado!"});
+        }catch(err){
+            console.log(err);
+            return res.status(500).json({msg: 'server internal error!'});
+        }
+    }
 }
 
 module.exports = new productController();

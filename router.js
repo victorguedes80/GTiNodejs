@@ -18,5 +18,6 @@ router.delete('/deleteUser', uController.delete);
 router.post('/createProduct', prController.create);
 router.get('/getProduct', prController.read);
 router.post('/getProductClause', prController.readClause);
+router.post('/updateProduct', prController.update);
 
 module.exports = router;
