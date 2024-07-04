@@ -3,6 +3,7 @@ const router = express.Router();
 const mController = require('./controllers/messageController');
 const uController = require('./controllers/userController');
 const prController = require('./controllers/productController');
+const puController = require('./controllers/purchaseController');
 
 router.get('/', (req, res)=>{console.log("o / foi acessado!")});
 router.get('/showReq', mController.showReq);
@@ -20,5 +21,11 @@ router.get('/getProduct', prController.read);
 router.post('/getProductClause', prController.readClause);
 router.post('/updateProduct', prController.update);
 router.delete('/deleteProduct', prController.delete);
+
+router.post('/createPurchase', puController.create);
+router.get('/getPurchase', puController.read);
+router.post('/getPurchaseClause', puController.readClause);
+router.post('/updatePurchase', puController.update);
+router.delete('/deletePurchase', puController.delete);
 
 module.exports = router;

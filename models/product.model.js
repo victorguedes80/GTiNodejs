@@ -1,5 +1,5 @@
 const {DataTypes} = require('sequelize');
-const sequelize = require('../services/dbConnect')
+const sequelize = require('../services/dbConnect');
 
 const product = sequelize.define('product', {
     productid: {
@@ -20,6 +20,7 @@ const product = sequelize.define('product', {
     price: {
         type: DataTypes.DECIMAL(10,2)
     }
-})
+});
+
 
 module.exports = product;

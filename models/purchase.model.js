@@ -1,5 +1,8 @@
 const {DataTypes} = require('sequelize');
-const sequelize = require('../services/dbConnect')
+const sequelize = require('../services/dbConnect');
+const user = require('../models/user.model');
+const product = require('../models/product.model');
+
 
 const purchase = sequelize.define('purchase', {
     purchaseid: {
@@ -29,4 +32,15 @@ const purchase = sequelize.define('purchase', {
         }
     }
 
-})
+});
+
+purchase.belongsTo(User, { as: 'Buyer', foreignKey: 'buyerid' });
+purchase.belongsTo(User, { as: 'Seller', foreignKey: 'sellerid' });
+purchase.belongsTo(product, { foreignKey: 'productid' });
+
+user.hasMany(purchase, { as: 'PurchasesAsBuyer', foreignKey: 'buyerid' });
+user.hasMany(purchase, { as: 'PurchasesAsSeller', foreignKey: 'sellerid' });
+product.hasMany(purchase, { foreignKey: 'productid' });
+
+
+module.exports = purchase;
