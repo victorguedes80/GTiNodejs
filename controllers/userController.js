@@ -89,6 +89,33 @@ class userController{
             return res.status(500).json({msg: 'server internal error!'});
         }
     }
+    async userProfit(req, res) {
+        const userid = req.body.userid;
+
+        const query = `
+            SELECT SUM(price) AS valor_recebido
+            FROM (
+                SELECT pr.price
+                FROM products pr, purchases pu
+                WHERE pr.productid = pu.productid AND
+                pu.sellerid = :userid
+            ) AS prices
+        `;
+
+        try {
+            const [profit] = await sequelize.query(query, {
+                replacements: {userid: userid},
+                type: QueryTypes.SELECT,
+            });
+
+            if(profit) return res.status(200).json(profit);
+            else return res.status(500).json({msg: 'server internal error!'});
+
+        }catch(err) {
+            console.log(err);
+            return res.status(500).json({msg: 'server internal error!'});
+        }
+    }
 }
 
 module.exports = new userController();

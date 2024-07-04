@@ -29,5 +29,6 @@ router.post('/updatePurchase', puController.update);
 router.delete('/deletePurchase', puController.delete);
 
 router.post('/userSpending', uController.userSpending);
+router.post('/userProfit', uController.userProfit);
 
 module.exports = router;
