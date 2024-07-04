@@ -28,4 +28,6 @@ router.post('/getPurchaseClause', puController.readClause);
 router.post('/updatePurchase', puController.update);
 router.delete('/deletePurchase', puController.delete);
 
+router.post('/userSpending', uController.userSpending);
+
 module.exports = router;

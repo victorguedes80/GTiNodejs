@@ -1,5 +1,7 @@
 const dbAccess = require('../services/dbAccess');
 const model = require('../models/user.model') ;
+const sequelize = require('../services/dbConnect');
+const {QueryTypes} = require('sequelize');
 
 class userController{
     async create(req, res){
@@ -56,6 +58,33 @@ class userController{
             if(result) return res.status(200).json({msg: "usuário deletado com sucesso!"});
             else return res.status(500).json({msg: 'server internal error!'});
         }catch(err){
+            console.log(err);
+            return res.status(500).json({msg: 'server internal error!'});
+        }
+    }
+    async userSpending(req, res) {
+        const userid = req.body.userid;
+
+        const query = `
+            SELECT SUM(price) AS valor_gasto
+            FROM (
+                SELECT pr.price
+                FROM products pr, purchases pu
+                WHERE pr.productid = pu.productid AND
+                pu.buyerid = :userid
+            ) AS prices
+        `;
+
+        try {
+            const [spending] = await sequelize.query(query, {
+                replacements: {userid: userid},
+                type: QueryTypes.SELECT,
+            });
+
+            if(spending) return res.status(200).json(spending);
+            else return res.status(500).json({msg: 'server internal error!'});
+
+        }catch(err) {
             console.log(err);
             return res.status(500).json({msg: 'server internal error!'});
         }

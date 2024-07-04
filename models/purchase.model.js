@@ -34,8 +34,8 @@ const purchase = sequelize.define('purchase', {
 
 });
 
-purchase.belongsTo(User, { as: 'Buyer', foreignKey: 'buyerid' });
-purchase.belongsTo(User, { as: 'Seller', foreignKey: 'sellerid' });
+purchase.belongsTo(user, { as: 'Buyer', foreignKey: 'buyerid' });
+purchase.belongsTo(user, { as: 'Seller', foreignKey: 'sellerid' });
 purchase.belongsTo(product, { foreignKey: 'productid' });
 
 user.hasMany(purchase, { as: 'PurchasesAsBuyer', foreignKey: 'buyerid' });
