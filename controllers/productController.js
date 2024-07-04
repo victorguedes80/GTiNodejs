@@ -1,5 +1,8 @@
 const dbAccess = require('../services/dbAccess');
 const model = require('../models/product.model');
+const sequelize = require('../services/dbConnect');
+const {QueryTypes} = require('sequelize');
+
 
 class productController{
    async create(req, res){   
@@ -60,6 +63,64 @@ class productController{
             console.log(err);
             return res.status(500).json({msg: 'server internal error!'});
         }
+    }
+    async sales(req, res){
+        const productid = req.body.productid;
+        const query = `
+            SELECT COUNT(*) AS numero_de_vendas
+            FROM purchases 
+            WHERE productid = :productid
+        `;
+        try {
+            const [sales] = await sequelize.query(query, {
+                replacements: {productid: productid},
+                type: QueryTypes.SELECT,
+            });
+            if(sales) return res.status(200).json(sales);
+            else return res.status(500).json({msg: 'server internal error!'});
+
+            }catch(err) {
+                console.log(err);
+                return res.status(500).json({msg: 'server internal error!'});
+            }
+    }
+    async profit(req, res){
+        const productid = req.body.productid;
+
+        const salesQuery = `
+            SELECT COUNT(*) AS numero_de_vendas
+            FROM purchases 
+            WHERE productid = :productid
+        `;
+
+        const priceQuery = `
+            SELECT price
+            FROM products 
+            WHERE productid = :productid
+        `;
+
+        try {
+            const [salesResult] = await sequelize.query(salesQuery, {
+                replacements: {productid: productid},
+                type: QueryTypes.SELECT,
+            });
+            const [priceResult] = await sequelize.query(priceQuery, {
+                replacements: {productid: productid},
+                type: QueryTypes.SELECT,
+            });
+
+            const sales = salesResult.numero_de_vendas;
+            const price = priceResult.price;
+
+            const profit = (sales*price).toFixed(2);
+            
+            if(profit)return res.status(200).json({"valor_do_lucro": profit});
+            else return res.status(500).json({msg: 'server internal error!'});
+
+            }catch(err) {
+                console.log(err);
+                return res.status(500).json({msg: 'server internal error!'});
+            }
     }
 }
 

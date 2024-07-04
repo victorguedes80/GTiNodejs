@@ -31,4 +31,7 @@ router.delete('/deletePurchase', puController.delete);
 router.post('/userSpending', uController.userSpending);
 router.post('/userProfit', uController.userProfit);
 
+router.post('/sales', prController.sales);
+router.post('/profit', prController.profit);
+
 module.exports = router;
