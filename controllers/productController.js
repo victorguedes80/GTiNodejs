@@ -64,6 +64,7 @@ class productController{
             return res.status(500).json({msg: 'server internal error!'});
         }
     }
+    //lógica para as funcionalidades de vendas e lucro do produto que usa como base consultas em sql
     async sales(req, res){
         const productid = req.body.productid;
         const query = `

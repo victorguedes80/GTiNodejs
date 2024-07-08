@@ -10,27 +10,32 @@ router.get('/showReq', mController.showReq);
 router.post('/showBody', mController.showBody);
 router.post('/login', mController.validLogin);
 
+//rotas de requisição CRUD do usuário
 router.post('/createUser', uController.create);
 router.get('/getUser', uController.read);
 router.post('/getClause', uController.readClause);
 router.post('/updateUser', uController.update);
 router.delete('/deleteUser', uController.delete);
 
+//rotas de requisição CRUD do produto
 router.post('/createProduct', prController.create);
 router.get('/getProduct', prController.read);
 router.post('/getProductClause', prController.readClause);
 router.post('/updateProduct', prController.update);
 router.delete('/deleteProduct', prController.delete);
 
+//rotas de requisição CRUD da compra
 router.post('/createPurchase', puController.create);
 router.get('/getPurchase', puController.read);
 router.post('/getPurchaseClause', puController.readClause);
 router.post('/updatePurchase', puController.update);
 router.delete('/deletePurchase', puController.delete);
 
+//rotas de lucro e gasto do usuário
 router.post('/userSpending', uController.userSpending);
 router.post('/userProfit', uController.userProfit);
 
+//rotas de lucro e vendas do produto
 router.post('/sales', prController.sales);
 router.post('/profit', prController.profit);
 

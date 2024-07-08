@@ -62,6 +62,8 @@ class userController{
             return res.status(500).json({msg: 'server internal error!'});
         }
     }
+
+    //lógica para as funcionalidades de gastos e lucro do usuário que usa como base consultas em sql
     async userSpending(req, res) {
         const userid = req.body.userid;
 

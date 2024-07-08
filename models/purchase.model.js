@@ -3,7 +3,7 @@ const sequelize = require('../services/dbConnect');
 const user = require('../models/user.model');
 const product = require('../models/product.model');
 
-
+//definição do modelo da compra
 const purchase = sequelize.define('purchase', {
     purchaseid: {
         type: DataTypes.INTEGER,
